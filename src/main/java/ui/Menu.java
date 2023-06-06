@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 
 public class Menu {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
         Sistema sistema = new Sistema();
 
@@ -37,6 +37,8 @@ public class Menu {
                     if (pessoa != null) {
                         sistema.adicionarPessoa(pessoa);
                     }
+
+                    Thread.sleep(1000);
                     break;
                 case 2:
                     try {
@@ -46,46 +48,57 @@ public class Menu {
                         pessoa = sistema.encontrarPesssoa(codigoPessoa);
 
                         double imc = CalculadoraIMC.calcularIMC(pessoa.getPeso(), pessoa.getAltura());
-                        System.out.println("IMC: %.2f", imc);
+                        System.out.printf("IMC: %.2f %n", imc);
                         System.out.println("Interpretação do IMC: " +
                                 CalculadoraIMC.interpretarIMC(imc, pessoa.getSexo()));
 
                     } catch (NullPointerException e) {
                         System.out.println("Erro: " + e.getMessage());
                     }
+
+                    Thread.sleep(1000);
                     break;
                 case 3:
                     try {
                         System.out.print("Digite o código da pessoa: ");
                         int codigoPessoa = scanner.nextInt();
 
+                        pessoa = sistema.encontrarPesssoa(codigoPessoa);
+
                         double pesoIdeal = CalculadoraPesoIdeal.calcularPesoIdeal(pessoa.getAltura(), pessoa.getSexo());
                         System.out.println("Peso Ideal: " + pesoIdeal);
                     } catch (NullPointerException e) {
                         System.out.println("Erro: " + e.getMessage());}
 
+                    Thread.sleep(1000);
                     break;
                 case 4:
                     try {
                         System.out.print("Digite o código da pessoa: ");
                         int codigoPessoa = scanner.nextInt();
 
+                        pessoa = sistema.encontrarPesssoa(codigoPessoa);
+
                         double taxaGordura = CalculadoraTaxaGordura.calcularTaxaGordura(
                                 CalculadoraIMC.calcularIMC(pessoa.getPeso(), pessoa.getAltura()),
                                 pessoa.getSexo(), pessoa.getIdade());
-                        System.out.println("Taxa de Gordura Corporal: " + taxaGordura);
+                        System.out.printf("Taxa de Gordura Corporal: %.2f %n", taxaGordura);
                     } catch (NullPointerException e) {
                         System.out.println("Erro: " + e.getMessage());
                     };
 
+                    Thread.sleep(1000);
                     break;
                 case 5:
                     sistema.listarPessoas();
+
+                    Thread.sleep(1000);
                     break;
                 case 6:
-
                     sistema.salvarDadosEmArquivo("dados.txt");
                     System.out.println("Saindo do sistema...");
+
+                    Thread.sleep(1000);
                     break;
                 default:
                     System.out.println("Opção inválida. Digite um número de 1 a 6.");
