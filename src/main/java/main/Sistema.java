@@ -39,12 +39,12 @@ public class Sistema {
             System.out.println("Idade: " + pessoa.getIdade());
             System.out.println("Peso: " + pessoa.getPeso());
             System.out.println("Altura: " + pessoa.getAltura());
-            System.out.println("IMC: " + CalculadoraIMC.calcularIMC(pessoa.getPeso(), pessoa.getAltura()));
+            System.out.printf("IMC: %.2f\n", CalculadoraIMC.calcularIMC(pessoa.getPeso(), pessoa.getAltura()));
             System.out.println("Interpretação do IMC: " +
                     CalculadoraIMC.interpretarIMC(CalculadoraIMC.calcularIMC(pessoa.getPeso(), pessoa.getAltura()), pessoa.getSexo()));
-            System.out.println("Peso Ideal: " +
+            System.out.printf("Peso Ideal: %.2f\n",
                             CalculadoraPesoIdeal.calcularPesoIdeal(pessoa.getAltura(), pessoa.getSexo()));
-            System.out.println("Taxa de Gordura Corporal: " +
+            System.out.printf("Taxa de Gordura Corporal: %.2f\n",
                     CalculadoraTaxaGordura.calcularTaxaGordura(CalculadoraIMC.calcularIMC(pessoa.getPeso(), pessoa.getAltura()),
                             pessoa.getSexo(), pessoa.getIdade()));
             System.out.println("------------------------------------");

@@ -82,15 +82,15 @@ public class Menu {
         String sexo = scanner.nextLine();
         System.out.print("Digite a idade: ");
         int idade = scanner.nextInt();
-        System.out.print("Digite o peso (Kg): ");
+        System.out.print("Digite o peso (Kgs): ");
         double peso = scanner.nextDouble();
-        System.out.print("Digite a altura (Metro): ");
+        System.out.print("Digite a altura (Metros): ");
         double altura = scanner.nextDouble();
         scanner.nextLine();
 
         Pessoa pessoa = new Pessoa(nome, sexo, idade, peso, altura);
         sistema.adicionarPessoa(pessoa);
-        System.out.println(nome + " adicionado com sucesso!");
+        System.out.println(nome + " adicionado(a) com sucesso! ID: " + pessoa.getCodigo());
         Thread.sleep(1000);
     }
 
@@ -158,7 +158,8 @@ public class Menu {
         pessoa = sistema.encontrarPessoa(codigoPessoa);
 
         if (pessoa == null) {
-            System.out.println();
+            System.out.println("Pessoa não encontrado");
+            return;
         }
 
         double imc = CalculadoraIMC.calcularIMC(pessoa.getPeso(), pessoa.getAltura());
@@ -172,6 +173,11 @@ public class Menu {
         System.out.print("Digite o código da pessoa: ");
         pessoa = sistema.encontrarPessoa(scanner.nextInt());
 
+        if (pessoa == null) {
+            System.out.println("Pessoa não encontrado");
+            return;
+        }
+
         double pesoIdeal = CalculadoraPesoIdeal.calcularPesoIdeal(pessoa.getAltura(), pessoa.getSexo());
         System.out.println("Peso Ideal: " + pesoIdeal);
         Thread.sleep(1000);
@@ -180,6 +186,11 @@ public class Menu {
     public static void calcularTaxaDeGorduraCorporal() throws InterruptedException {
         System.out.print("Digite o código da pessoa: ");
         pessoa = sistema.encontrarPessoa(scanner.nextInt());
+
+        if (pessoa == null) {
+            System.out.println("Pessoa não encontrado");
+            return;
+        }
 
         double taxaGordura = CalculadoraTaxaGordura.calcularTaxaGordura(
                 CalculadoraIMC.calcularIMC(pessoa.getPeso(), pessoa.getAltura()),
