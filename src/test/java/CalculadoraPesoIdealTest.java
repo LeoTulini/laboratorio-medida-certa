@@ -5,14 +5,24 @@ import serviços.CalculadoraPesoIdeal;
 public class CalculadoraPesoIdealTest {
 
     @Test
-    public void deveCalcularCorretamenteOPesoIdealFeminino() {
+    public void calcularPesoIdeal_Feminino() {
+        double altura = 165.0;
+        String sexo = "F";
+        double pesoIdealEsperado = 52.5;
 
-        Assert.assertEquals(CalculadoraPesoIdeal.calcularPesoIdeal(175, "f"), 62.5, .01);
+        double pesoIdealCalculado = CalculadoraPesoIdeal.calcularPesoIdeal(altura, sexo);
+
+        Assert.assertEquals(pesoIdealEsperado, pesoIdealCalculado, 0.001);
     }
 
     @Test
-    public void deveCalcularCorretamenteOPesoIdealMasculino() {
+    public void calcularPesoIdeal_Masculino() {
+        double altura = 180.0;
+        String sexo = "M";
+        double pesoIdealEsperado = 70.0;
 
-        Assert.assertEquals(CalculadoraPesoIdeal.calcularPesoIdeal(175, "m"), 68.75, .01);
+        double pesoIdealCalculado = CalculadoraPesoIdeal.calcularPesoIdeal(altura, sexo);
+
+        Assert.assertEquals(pesoIdealEsperado, pesoIdealCalculado, 0.001);
     }
 }

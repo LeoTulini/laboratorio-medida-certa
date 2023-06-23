@@ -8,7 +8,6 @@ import serviços.CalculadoraTaxaGordura;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Sistema {
@@ -18,38 +17,34 @@ public class Sistema {
         this.pessoas = new ArrayList<>();
     }
 
-    public List<Pessoa> getPessoas() {
-        return pessoas;
-    }
-
     public void adicionarPessoa(Pessoa pessoa) {
         pessoas.add(pessoa);
     }
 
-    public Pessoa encontrarPesssoa(int codigo) {
+    public Pessoa encontrarPessoa(int codigo) {
         for (Pessoa pessoa : pessoas) {
             if (pessoa.getCodigo() == codigo) {
                 return pessoa;
             }
         }
         return null;
-    }
+    };
 
     public void listarPessoas() {
         System.out.println("Listagem de Pessoas:");
         for (Pessoa pessoa : pessoas) {
             System.out.println("Código: " + pessoa.getCodigo());
             System.out.println("Nome: " + pessoa.getNome());
-            System.out.println("Sexo: " + pessoa.getSexo().toUpperCase());
+            System.out.println("Sexo: " + pessoa.getSexo());
             System.out.println("Idade: " + pessoa.getIdade());
             System.out.println("Peso: " + pessoa.getPeso());
             System.out.println("Altura: " + pessoa.getAltura());
-            System.out.printf("IMC: %.2f %n", CalculadoraIMC.calcularIMC(pessoa.getPeso(), pessoa.getAltura()));
+            System.out.println("IMC: " + CalculadoraIMC.calcularIMC(pessoa.getPeso(), pessoa.getAltura()));
             System.out.println("Interpretação do IMC: " +
                     CalculadoraIMC.interpretarIMC(CalculadoraIMC.calcularIMC(pessoa.getPeso(), pessoa.getAltura()), pessoa.getSexo()));
             System.out.println("Peso Ideal: " +
                             CalculadoraPesoIdeal.calcularPesoIdeal(pessoa.getAltura(), pessoa.getSexo()));
-            System.out.printf("Taxa de Gordura Corporal: %.2f %n",
+            System.out.println("Taxa de Gordura Corporal: " +
                     CalculadoraTaxaGordura.calcularTaxaGordura(CalculadoraIMC.calcularIMC(pessoa.getPeso(), pessoa.getAltura()),
                             pessoa.getSexo(), pessoa.getIdade()));
             System.out.println("------------------------------------");
@@ -79,7 +74,7 @@ public class Sistema {
                 int idade = Integer.parseInt(dados[3]);
                 double peso = Double.parseDouble(dados[4]);
                 double altura = Double.parseDouble(dados[5]);
-                Pessoa pessoa = new Pessoa(codigo, nome, sexo, idade, peso, altura);
+                Pessoa pessoa = new Pessoa(nome, sexo, idade, peso, altura);
                 pessoas.add(pessoa);
             }
             System.out.println("Dados carregados com sucesso!");

@@ -1,6 +1,10 @@
 package negocio;
 
+import java.util.List;
+import java.util.Locale;
+
 public class Pessoa {
+    private static int ultimoCodigo = 0;
     private int codigo;
     private String nome;
     private String sexo;
@@ -8,13 +12,32 @@ public class Pessoa {
     private double peso;
     private double altura;
 
-    public Pessoa(int codigo, String nome, String sexo, int idade, double peso, double altura) throws IllegalArgumentException {
-        setCodigo(codigo);
-        setNome(nome);
-        setSexo(sexo);
-        setIdade(idade);
-        setPeso(peso);
-        setAltura(altura);
+    public Pessoa(String nome, String sexo, int idade, double peso, double altura) {
+        this.codigo = gerarNovoCodigo();
+        validarNome(nome);
+        validarSexo(sexo);
+        validarIdade(idade);
+        validarPeso(peso);
+        validarAltura(altura);
+        this.nome = nome;
+        this.sexo = sexo.toUpperCase();
+        this.idade = idade;
+        this.peso = peso;
+        this.altura = altura;
+    }
+
+    private static int gerarNovoCodigo() {
+     ultimoCodigo++;
+     return ultimoCodigo;
+    }
+
+    public static boolean idExiste(List<Pessoa> pessoas, int codigo) {
+        for (Pessoa pessoa : pessoas) {
+            if (pessoa.getCodigo() == codigo) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public int getCodigo() {
@@ -22,9 +45,6 @@ public class Pessoa {
     }
 
     public void setCodigo(int codigo) {
-        if (codigo <= 0) {
-            throw new IllegalArgumentException("Código inválido. O código deve ser maior que zero.");
-        }
         this.codigo = codigo;
     }
 
@@ -33,9 +53,6 @@ public class Pessoa {
     }
 
     public void setNome(String nome) {
-        if (nome == null || nome.isEmpty()) {
-            throw new IllegalArgumentException("Nome inválido. O nome não pode ser vazio.");
-        }
         this.nome = nome;
     }
 
@@ -44,10 +61,7 @@ public class Pessoa {
     }
 
     public void setSexo(String sexo) {
-        if (!sexo.equalsIgnoreCase("M") && !sexo.equalsIgnoreCase("F")) {
-            throw new IllegalArgumentException("Sexo inválido. O sexo deve ser 'M' ou 'F'.");
-        }
-        this.sexo = sexo.toUpperCase();
+        this.sexo = sexo;
     }
 
     public int getIdade() {
@@ -55,9 +69,6 @@ public class Pessoa {
     }
 
     public void setIdade(int idade) {
-        if (idade <= 0) {
-            throw new IllegalArgumentException("Idade inválida. A idade deve ser maior que zero.");
-        }
         this.idade = idade;
     }
 
@@ -66,9 +77,6 @@ public class Pessoa {
     }
 
     public void setPeso(double peso) {
-        if (peso <= 0) {
-            throw new IllegalArgumentException("Peso inválido. O peso deve ser maior que zero.");
-        }
         this.peso = peso;
     }
 
@@ -77,9 +85,36 @@ public class Pessoa {
     }
 
     public void setAltura(double altura) {
-        if (altura <= 0) {
-            throw new IllegalArgumentException("Altura inválida. A altura deve ser maior que zero.");
-        }
         this.altura = altura;
+    }
+
+    private void validarNome(String name) throws  IllegalArgumentException{
+        if (name == null || name.length() == 0){
+            throw new IllegalArgumentException ("Não é permitido criar uma pessoa sem nome.");
+        }
+    }
+
+    private void validarSexo(String sexo){
+        if(sexo == null){
+            throw new IllegalArgumentException ("Não é permitido criar um candidato sem sexo.");
+        }
+    }
+
+    private void validarIdade(int idade) {
+        if (idade <= 0) {
+            throw new IllegalArgumentException("Idade inválida. A idade deve ser um valor positivo.");
+        }
+    }
+
+    private void validarPeso(double peso) {
+        if (peso <= 0) {
+            throw new IllegalArgumentException("Peso inválido. O peso deve ser um valor positivo.");
+        }
+    }
+
+    private void validarAltura(double altura) {
+        if (altura <= 0) {
+            throw new IllegalArgumentException("Altura inválida. A altura deve ser um valor positivo.");
+        }
     }
 }

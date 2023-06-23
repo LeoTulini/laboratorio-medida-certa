@@ -5,45 +5,79 @@ import serviços.CalculadoraIMC;
 public class CalculadoraIMCTest {
 
     @Test
-    public void deveCalcularCorretamenteOIMC() {
+    public void calcularIMC_Valido() {
+        double peso = 80.5;
+        double altura = 1.75;
+        double imcEsperado = 26.285714285714285;
 
-        Assert.assertEquals(CalculadoraIMC.calcularIMC(83, 175), 27.1, .01);
+        double imcCalculado = CalculadoraIMC.calcularIMC(peso, altura);
+
+        Assert.assertEquals(imcEsperado, imcCalculado, 0.001);
     }
 
     @Test
-    public void deveInterpretarOIMCCorretamenteQuandoAbaixoDoPesoMasculino() {
+    public void interpretarIMC_Feminino_AbaixoPeso() {
+        double imc = 18.5;
+        String sexo = "F";
+        String interpretacaoEsperada = "Abaixo do Peso";
 
-        Assert.assertEquals(CalculadoraIMC.interpretarIMC(CalculadoraIMC.calcularIMC(63, 175), "m"), "Abaixo do Peso");
+        String interpretacaoCalculada = CalculadoraIMC.interpretarIMC(imc, sexo);
+
+        Assert.assertEquals(interpretacaoEsperada, interpretacaoCalculada);
     }
 
     @Test
-    public void deveInterpretarOIMCCorretamenteQuandoPesoIdealMasculino() {
+    public void interpretarIMC_Feminino_PesoIdeal() {
+        double imc = 22.5;
+        String sexo = "F";
+        String interpretacaoEsperada = "Peso Ideal";
 
-        Assert.assertEquals(CalculadoraIMC.interpretarIMC(CalculadoraIMC.calcularIMC(73, 175), "m"), "Peso Ideal");
+        String interpretacaoCalculada = CalculadoraIMC.interpretarIMC(imc, sexo);
+
+        Assert.assertEquals(interpretacaoEsperada, interpretacaoCalculada);
     }
 
     @Test
-    public void deveInterpretarOIMCCorretamenteQuandoObesoMasculino() {
+    public void interpretarIMC_Feminino_Obeso() {
+        double imc = 30.0;
+        String sexo = "F";
+        String interpretacaoEsperada = "Obeso";
 
-        Assert.assertEquals(CalculadoraIMC.interpretarIMC(CalculadoraIMC.calcularIMC(83, 175), "m"), "Obeso");
+        String interpretacaoCalculada = CalculadoraIMC.interpretarIMC(imc, sexo);
+
+        Assert.assertEquals(interpretacaoEsperada, interpretacaoCalculada);
     }
 
     @Test
-    public void deveInterpretarOIMCCorretamenteQuandoAbaixoDoPesoFeminino() {
+    public void interpretarIMC_Masculino_AbaixoPeso() {
+        double imc = 19.5;
+        String sexo = "M";
+        String interpretacaoEsperada = "Abaixo do Peso";
 
-        Assert.assertEquals(CalculadoraIMC.interpretarIMC(CalculadoraIMC.calcularIMC(53, 175), "f"), "Abaixo do Peso");
+        String interpretacaoCalculada = CalculadoraIMC.interpretarIMC(imc, sexo);
+
+        Assert.assertEquals(interpretacaoEsperada, interpretacaoCalculada);
     }
 
     @Test
-    public void deveInterpretarOIMCCorretamenteQuandoPesoIdealFeminino() {
+    public void interpretarIMC_Masculino_PesoIdeal() {
+        double imc = 23.0;
+        String sexo = "M";
+        String interpretacaoEsperada = "Peso Ideal";
 
-        Assert.assertEquals(CalculadoraIMC.interpretarIMC(CalculadoraIMC.calcularIMC(63, 175), "f"), "Peso Ideal");
+        String interpretacaoCalculada = CalculadoraIMC.interpretarIMC(imc, sexo);
+
+        Assert.assertEquals(interpretacaoEsperada, interpretacaoCalculada);
     }
 
     @Test
-    public void deveInterpretarOIMCCorretamenteQuandoObesoFeminino() {
+    public void interpretarIMC_Masculino_Obeso() {
+        double imc = 28.0;
+        String sexo = "M";
+        String interpretacaoEsperada = "Obeso";
 
-        Assert.assertEquals(CalculadoraIMC.interpretarIMC(CalculadoraIMC.calcularIMC(83, 175), "f"), "Obeso");
+        String interpretacaoCalculada = CalculadoraIMC.interpretarIMC(imc, sexo);
+
+        Assert.assertEquals(interpretacaoEsperada, interpretacaoCalculada);
     }
-
 }
