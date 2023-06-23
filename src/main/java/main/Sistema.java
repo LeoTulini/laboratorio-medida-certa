@@ -8,6 +8,7 @@ import serviços.CalculadoraTaxaGordura;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
 
@@ -82,5 +83,9 @@ public class Sistema {
         } catch (FileNotFoundException e) {
             System.out.println("Arquivo não encontrado: " + e.getMessage());
         }
+    }
+
+    public List<Pessoa> getPessoas() {
+        return pessoas;
     }
 }
