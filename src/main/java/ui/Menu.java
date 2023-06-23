@@ -1,6 +1,7 @@
 package ui;
 
 import main.Sistema;
+import negocio.Genero;
 import negocio.Pessoa;
 import serviços.CalculadoraIMC;
 import serviços.CalculadoraPesoIdeal;
@@ -78,19 +79,19 @@ public class Menu {
 
         System.out.print("Digite o nome: ");
         String nome = scanner.nextLine();
-        System.out.print("Digite o sexo (M/F): ");
-        String sexo = scanner.nextLine();
+        System.out.print("Digite o genero (M/F): ");
+        Genero genero = Genero.valueOf(scanner.nextLine());
         System.out.print("Digite a idade: ");
         int idade = scanner.nextInt();
-        System.out.print("Digite o peso (Kgs): ");
+        System.out.print("Digite o peso (Kg): ");
         double peso = scanner.nextDouble();
-        System.out.print("Digite a altura (Metros): ");
+        System.out.print("Digite a altura (Cm): ");
         double altura = scanner.nextDouble();
         scanner.nextLine();
 
-        Pessoa pessoa = new Pessoa(nome, sexo, idade, peso, altura);
+        Pessoa pessoa = new Pessoa(nome, genero, idade, peso, altura);
         sistema.adicionarPessoa(pessoa);
-        System.out.println(nome + " adicionado(a) com sucesso! ID: " + pessoa.getCodigo());
+        System.out.println(nome + " adicionado(a) com sucesso! Código: " + pessoa.getCodigo());
         Thread.sleep(1000);
     }
 
@@ -120,10 +121,10 @@ public class Menu {
                     System.out.println("Nome atualizado com sucesso.");
                     break;
                 case 2:
-                    System.out.print("Digite o novo sexo (M/F): ");
-                    String novoSexo = scanner.nextLine();
-                    pessoaEditar.setSexo(novoSexo);
-                    System.out.println("Sexo atualizado com sucesso.");
+                    System.out.print("Digite o novo sexo (MASCULINO/FEMININO): ");
+                    Genero novoGenero = Genero.valueOf(scanner.nextLine());
+                    pessoaEditar.setGenero(novoGenero);
+                    System.out.println("Genero atualizado com sucesso.");
                     break;
                 case 3:
                     System.out.print("Digite a nova idade: ");
@@ -165,7 +166,7 @@ public class Menu {
         double imc = CalculadoraIMC.calcularIMC(pessoa.getPeso(), pessoa.getAltura());
         System.out.println("IMC: " + imc);
         System.out.println("Interpretação do IMC: " +
-                CalculadoraIMC.interpretarIMC(imc, pessoa.getSexo()));
+                CalculadoraIMC.interpretarIMC(imc, pessoa.getGenero()));
         Thread.sleep(1000);
     }
 
@@ -178,7 +179,7 @@ public class Menu {
             return;
         }
 
-        double pesoIdeal = CalculadoraPesoIdeal.calcularPesoIdeal(pessoa.getAltura(), pessoa.getSexo());
+        double pesoIdeal = CalculadoraPesoIdeal.calcularPesoIdeal(pessoa.getAltura(), pessoa.getGenero());
         System.out.println("Peso Ideal: " + pesoIdeal);
         Thread.sleep(1000);
     }
@@ -194,7 +195,7 @@ public class Menu {
 
         double taxaGordura = CalculadoraTaxaGordura.calcularTaxaGordura(
                 CalculadoraIMC.calcularIMC(pessoa.getPeso(), pessoa.getAltura()),
-                pessoa.getSexo(), pessoa.getIdade());
+                pessoa.getGenero(), pessoa.getIdade());
         System.out.println("Taxa de Gordura Corporal: " + taxaGordura);
         Thread.sleep(1000);
     }

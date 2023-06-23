@@ -1,1 +1,1 @@
-2;Leonardo;M;20;85.2;1.75
+2;Leonardo;MASCULINO;20;85.2;175

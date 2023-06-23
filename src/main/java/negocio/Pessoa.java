@@ -1,26 +1,25 @@
 package negocio;
 
 import java.util.List;
-import java.util.Locale;
 
 public class Pessoa {
     private static int ultimoCodigo = 0;
     private int codigo;
     private String nome;
-    private String sexo;
+    private Genero genero;
     private int idade;
     private double peso;
     private double altura;
 
-    public Pessoa(String nome, String sexo, int idade, double peso, double altura) {
+    public Pessoa(String nome, Genero genero, int idade, double peso, double altura) {
         this.codigo = gerarNovoCodigo();
         validarNome(nome);
-        validarSexo(sexo);
+        validarGenero(genero);
         validarIdade(idade);
         validarPeso(peso);
         validarAltura(altura);
         this.nome = nome;
-        this.sexo = sexo.toUpperCase();
+        this.genero = genero;
         this.idade = idade;
         this.peso = peso;
         this.altura = altura;
@@ -44,10 +43,6 @@ public class Pessoa {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
-
     public String getNome() {
         return nome;
     }
@@ -56,12 +51,12 @@ public class Pessoa {
         this.nome = nome;
     }
 
-    public String getSexo() {
-        return sexo;
+    public String getGenero() {
+        return genero.name();
     }
 
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
+    public void setGenero(Genero genero) {
+        this.genero = genero;
     }
 
     public int getIdade() {
@@ -94,9 +89,9 @@ public class Pessoa {
         }
     }
 
-    private void validarSexo(String sexo){
-        if(sexo == null){
-            throw new IllegalArgumentException ("Não é permitido criar um candidato sem sexo.");
+    private void validarGenero(Genero genero){
+        if(genero == null || !(genero.name().equalsIgnoreCase("MASCULINO") || genero.name().equalsIgnoreCase("FEMININO"))){
+            throw new IllegalArgumentException ("Gênero inválido. O gênero deve ser 'MASCULINO' ou 'FEMININO'.");
         }
     }
 

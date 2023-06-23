@@ -1,5 +1,6 @@
 package main;
 
+import negocio.Genero;
 import negocio.Pessoa;
 import serviços.CalculadoraIMC;
 import serviços.CalculadoraPesoIdeal;
@@ -35,18 +36,18 @@ public class Sistema {
         for (Pessoa pessoa : pessoas) {
             System.out.println("Código: " + pessoa.getCodigo());
             System.out.println("Nome: " + pessoa.getNome());
-            System.out.println("Sexo: " + pessoa.getSexo());
+            System.out.println("Sexo: " + pessoa.getGenero());
             System.out.println("Idade: " + pessoa.getIdade());
             System.out.println("Peso: " + pessoa.getPeso());
             System.out.println("Altura: " + pessoa.getAltura());
             System.out.printf("IMC: %.2f\n", CalculadoraIMC.calcularIMC(pessoa.getPeso(), pessoa.getAltura()));
             System.out.println("Interpretação do IMC: " +
-                    CalculadoraIMC.interpretarIMC(CalculadoraIMC.calcularIMC(pessoa.getPeso(), pessoa.getAltura()), pessoa.getSexo()));
+                    CalculadoraIMC.interpretarIMC(CalculadoraIMC.calcularIMC(pessoa.getPeso(), pessoa.getAltura()), pessoa.getGenero()));
             System.out.printf("Peso Ideal: %.2f\n",
-                            CalculadoraPesoIdeal.calcularPesoIdeal(pessoa.getAltura(), pessoa.getSexo()));
+                            CalculadoraPesoIdeal.calcularPesoIdeal(pessoa.getAltura(), pessoa.getGenero()));
             System.out.printf("Taxa de Gordura Corporal: %.2f\n",
                     CalculadoraTaxaGordura.calcularTaxaGordura(CalculadoraIMC.calcularIMC(pessoa.getPeso(), pessoa.getAltura()),
-                            pessoa.getSexo(), pessoa.getIdade()));
+                            pessoa.getGenero(), pessoa.getIdade()));
             System.out.println("------------------------------------");
         }
     }
@@ -54,7 +55,7 @@ public class Sistema {
     public void salvarDadosEmArquivo(String arquivo) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(arquivo))) {
             for (Pessoa pessoa : pessoas) {
-                writer.println(pessoa.getCodigo() + ";" + pessoa.getNome() + ";" + pessoa.getSexo() + ";" +
+                writer.println(pessoa.getCodigo() + ";" + pessoa.getNome() + ";" + pessoa.getGenero() + ";" +
                         pessoa.getIdade() + ";" + pessoa.getPeso() + ";" + pessoa.getAltura());
             }
             System.out.println("Dados salvos com sucesso!");
@@ -70,11 +71,11 @@ public class Sistema {
                 String[] dados = linha.split(";");
                 int codigo = Integer.parseInt(dados[0]);
                 String nome = dados[1];
-                String sexo = dados[2];
+                Genero genero = Genero.valueOf(dados[2]);
                 int idade = Integer.parseInt(dados[3]);
                 double peso = Double.parseDouble(dados[4]);
                 double altura = Double.parseDouble(dados[5]);
-                Pessoa pessoa = new Pessoa(nome, sexo, idade, peso, altura);
+                Pessoa pessoa = new Pessoa(nome, genero, idade, peso, altura);
                 pessoas.add(pessoa);
             }
             System.out.println("Dados carregados com sucesso!");

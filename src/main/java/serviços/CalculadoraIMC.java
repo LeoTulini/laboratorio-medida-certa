@@ -2,7 +2,7 @@ package serviços;
 
 public class CalculadoraIMC {
     public static double calcularIMC(double peso, double altura) {
-        return peso / (altura * altura);
+        return peso / ((altura / 100) * (altura / 100));
     }
 
     public static String interpretarIMC(double imc, String sexo) {

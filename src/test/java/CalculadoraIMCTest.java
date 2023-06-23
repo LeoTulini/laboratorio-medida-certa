@@ -7,7 +7,7 @@ public class CalculadoraIMCTest {
     @Test
     public void calcularIMC_Valido() {
         double peso = 80.5;
-        double altura = 1.75;
+        double altura = 175.0;
         double imcEsperado = 26.285714285714285;
 
         double imcCalculado = CalculadoraIMC.calcularIMC(peso, altura);
@@ -17,7 +17,7 @@ public class CalculadoraIMCTest {
 
     @Test
     public void interpretarIMC_Feminino_AbaixoPeso() {
-        double imc = 18.5;
+        double imc = 17.0;
         String sexo = "F";
         String interpretacaoEsperada = "Abaixo do Peso";
 
