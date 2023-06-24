@@ -16,7 +16,7 @@ public class PessoaTest {
         Pessoa pessoa = new Pessoa(nome, genero, idade, peso, altura);
 
         Assert.assertEquals(nome, pessoa.getNome());
-        Assert.assertEquals("MASCULINO", pessoa.getGenero());
+        Assert.assertEquals(Genero.MASCULINO, pessoa.getGenero());
         Assert.assertEquals(idade, pessoa.getIdade());
         Assert.assertEquals(peso, pessoa.getPeso(), 0.001);
         Assert.assertEquals(altura, pessoa.getAltura(), 0.001);

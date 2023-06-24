@@ -11,7 +11,7 @@ public class CalculadoraPesoIdealTest {
         Genero genero = Genero.FEMININO;
         double pesoIdealEsperado = 57.5;
 
-        double pesoIdealCalculado = CalculadoraPesoIdeal.calcularPesoIdeal(altura, String.valueOf(genero));
+        double pesoIdealCalculado = CalculadoraPesoIdeal.calcularPesoIdeal(altura, genero);
 
         Assert.assertEquals(pesoIdealEsperado, pesoIdealCalculado, 0.001);
     }
@@ -22,7 +22,7 @@ public class CalculadoraPesoIdealTest {
         Genero genero = Genero.MASCULINO;
         double pesoIdealEsperado = 72.5;
 
-        double pesoIdealCalculado = CalculadoraPesoIdeal.calcularPesoIdeal(altura, String.valueOf(genero));
+        double pesoIdealCalculado = CalculadoraPesoIdeal.calcularPesoIdeal(altura, genero);
 
         Assert.assertEquals(pesoIdealEsperado, pesoIdealCalculado, 0.001);
     }

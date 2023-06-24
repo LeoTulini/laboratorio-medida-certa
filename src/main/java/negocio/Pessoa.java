@@ -51,8 +51,8 @@ public class Pessoa {
         this.nome = nome;
     }
 
-    public String getGenero() {
-        return genero.name();
+    public Genero getGenero() {
+        return genero;
     }
 
     public void setGenero(Genero genero) {

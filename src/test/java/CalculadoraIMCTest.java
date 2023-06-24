@@ -1,3 +1,4 @@
+import negocio.Genero;
 import org.junit.Assert;
 import org.junit.Test;
 import serviços.CalculadoraIMC;
@@ -18,10 +19,10 @@ public class CalculadoraIMCTest {
     @Test
     public void interpretarIMC_Feminino_AbaixoPeso() {
         double imc = 17.0;
-        String sexo = "F";
+        Genero genero = Genero.MASCULINO;
         String interpretacaoEsperada = "Abaixo do Peso";
 
-        String interpretacaoCalculada = CalculadoraIMC.interpretarIMC(imc, sexo);
+        String interpretacaoCalculada = CalculadoraIMC.interpretarIMC(imc, genero);
 
         Assert.assertEquals(interpretacaoEsperada, interpretacaoCalculada);
     }
@@ -29,10 +30,10 @@ public class CalculadoraIMCTest {
     @Test
     public void interpretarIMC_Feminino_PesoIdeal() {
         double imc = 22.5;
-        String sexo = "F";
+        Genero genero = Genero.FEMININO;
         String interpretacaoEsperada = "Peso Ideal";
 
-        String interpretacaoCalculada = CalculadoraIMC.interpretarIMC(imc, sexo);
+        String interpretacaoCalculada = CalculadoraIMC.interpretarIMC(imc, genero);
 
         Assert.assertEquals(interpretacaoEsperada, interpretacaoCalculada);
     }
@@ -40,10 +41,10 @@ public class CalculadoraIMCTest {
     @Test
     public void interpretarIMC_Feminino_Obeso() {
         double imc = 30.0;
-        String sexo = "F";
+        Genero genero = Genero.FEMININO;
         String interpretacaoEsperada = "Obeso";
 
-        String interpretacaoCalculada = CalculadoraIMC.interpretarIMC(imc, sexo);
+        String interpretacaoCalculada = CalculadoraIMC.interpretarIMC(imc, genero);
 
         Assert.assertEquals(interpretacaoEsperada, interpretacaoCalculada);
     }
@@ -51,10 +52,10 @@ public class CalculadoraIMCTest {
     @Test
     public void interpretarIMC_Masculino_AbaixoPeso() {
         double imc = 19.5;
-        String sexo = "M";
+        Genero genero = Genero.MASCULINO;
         String interpretacaoEsperada = "Abaixo do Peso";
 
-        String interpretacaoCalculada = CalculadoraIMC.interpretarIMC(imc, sexo);
+        String interpretacaoCalculada = CalculadoraIMC.interpretarIMC(imc, genero);
 
         Assert.assertEquals(interpretacaoEsperada, interpretacaoCalculada);
     }
@@ -62,10 +63,10 @@ public class CalculadoraIMCTest {
     @Test
     public void interpretarIMC_Masculino_PesoIdeal() {
         double imc = 23.0;
-        String sexo = "M";
+        Genero genero = Genero.MASCULINO;
         String interpretacaoEsperada = "Peso Ideal";
 
-        String interpretacaoCalculada = CalculadoraIMC.interpretarIMC(imc, sexo);
+        String interpretacaoCalculada = CalculadoraIMC.interpretarIMC(imc, genero);
 
         Assert.assertEquals(interpretacaoEsperada, interpretacaoCalculada);
     }
@@ -73,10 +74,10 @@ public class CalculadoraIMCTest {
     @Test
     public void interpretarIMC_Masculino_Obeso() {
         double imc = 28.0;
-        String sexo = "M";
+        Genero genero = Genero.MASCULINO;
         String interpretacaoEsperada = "Obeso";
 
-        String interpretacaoCalculada = CalculadoraIMC.interpretarIMC(imc, sexo);
+        String interpretacaoCalculada = CalculadoraIMC.interpretarIMC(imc, genero);
 
         Assert.assertEquals(interpretacaoEsperada, interpretacaoCalculada);
     }

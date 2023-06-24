@@ -18,7 +18,7 @@ public class Menu {
     private static Pessoa pessoa;
 
     public static void main(String[] args) throws InterruptedException {
-        sistema.carregarDadosDoArquivo("dados.txt");
+        sistema.carregarDadosDoArquivo("dados.csv");
 
         boolean sair = false;
 
@@ -47,7 +47,7 @@ public class Menu {
                         Thread.sleep(1000);
                         break;
                     case 7:
-                        sistema.salvarDadosEmArquivo("dados.txt");
+                        sistema.salvarDadosEmArquivo("dados.csv");
                         System.out.println("Saindo do sistema...");
                         sair = true;
                         break;
@@ -79,8 +79,22 @@ public class Menu {
 
         System.out.print("Digite o nome: ");
         String nome = scanner.nextLine();
-        System.out.print("Digite o genero (M/F): ");
-        Genero genero = Genero.valueOf(scanner.nextLine());
+
+        Genero genero = null;
+        boolean generoValido = false;
+
+        while (!generoValido) {
+            System.out.print("Digite o gênero (MASCULINO/FEMININO): ");
+            String generoInput = scanner.nextLine().toUpperCase();
+
+            try {
+                genero = Genero.valueOf(generoInput);
+                generoValido = true;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Gênero inválido. Por favor, digite novamente.");
+            }
+        }
+
         System.out.print("Digite a idade: ");
         int idade = scanner.nextInt();
         System.out.print("Digite o peso (Kg): ");
@@ -100,68 +114,72 @@ public class Menu {
         int codigoPessoa = scanner.nextInt();
         scanner.nextLine();
 
-        Pessoa pessoaEditar = sistema.encontrarPessoa(codigoPessoa);
-        if (pessoaEditar != null) {
-            System.out.println("Pessoa encontrada: " + pessoaEditar.getNome());
-            System.out.println("Digite o número correspondente ao dado que deseja editar:");
-            System.out.println("1. Nome");
-            System.out.println("2. Sexo");
-            System.out.println("3. Idade");
-            System.out.println("4. Peso");
-            System.out.println("5. Altura");
-            System.out.print("Opção: ");
-            int opcaoEditar = scanner.nextInt();
-            scanner.nextLine();
+        Pessoa pessoa = sistema.encontrarPessoa(codigoPessoa);
 
-            switch (opcaoEditar) {
-                case 1:
-                    System.out.print("Digite o novo nome: ");
-                    String novoNome = scanner.nextLine();
-                    pessoaEditar.setNome(novoNome);
-                    System.out.println("Nome atualizado com sucesso.");
-                    break;
-                case 2:
-                    System.out.print("Digite o novo sexo (MASCULINO/FEMININO): ");
-                    Genero novoGenero = Genero.valueOf(scanner.nextLine());
-                    pessoaEditar.setGenero(novoGenero);
-                    System.out.println("Genero atualizado com sucesso.");
-                    break;
-                case 3:
-                    System.out.print("Digite a nova idade: ");
-                    int novaIdade = scanner.nextInt();
-                    pessoaEditar.setIdade(novaIdade);
-                    System.out.println("Idade atualizada com sucesso.");
-                    break;
-                case 4:
-                    System.out.print("Digite o novo peso: ");
-                    double novoPeso = scanner.nextDouble();
-                    pessoaEditar.setPeso(novoPeso);
-                    System.out.println("Peso atualizado com sucesso.");
-                    break;
-                case 5:
-                    System.out.print("Digite a nova altura: ");
-                    double novaAltura = scanner.nextDouble();
-                    pessoaEditar.setAltura(novaAltura);
-                    System.out.println("Altura atualizada com sucesso.");
-                    break;
-                default:
-                    System.out.println("Opção inválida.");
-            }
-        } else {
-            System.out.println("Pessoa não encontrada.");
+        validarPessoa(pessoa);
+
+        System.out.println("Pessoa encontrada: " + pessoa.getNome());
+        System.out.println("Digite o número correspondente ao dado que deseja editar:");
+        System.out.println("1. Nome");
+        System.out.println("2. Genero");
+        System.out.println("3. Idade");
+        System.out.println("4. Peso");
+        System.out.println("5. Altura");
+        System.out.print("Opção: ");
+        int opcaoEditar = scanner.nextInt();
+        scanner.nextLine();
+
+        switch (opcaoEditar) {
+            case 1:
+                System.out.print("Digite o novo nome: ");
+                String novoNome = scanner.nextLine();
+                pessoa.setNome(novoNome);
+                System.out.println("Nome atualizado com sucesso.");
+                break;
+            case 2:
+                Genero genero = null;
+                boolean generoValido = false;
+
+                while (!generoValido) {
+                System.out.print("Digite o novo genero (MASCULINO/FEMININO): ");
+                String novoGenero = scanner.nextLine().toUpperCase();
+                try {
+                    pessoa.setGenero(Genero.valueOf(novoGenero));
+                    generoValido = true;
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Gênero inválido. Por favor, digite novamente.");
+                }}
+                System.out.println("Genero atualizado com sucesso.");
+                break;
+            case 3:
+                System.out.print("Digite a nova idade: ");
+                int novaIdade = scanner.nextInt();
+                pessoa.setIdade(novaIdade);
+                System.out.println("Idade atualizada com sucesso.");
+                break;
+            case 4:
+                System.out.print("Digite o novo peso: ");
+                double novoPeso = scanner.nextDouble();
+                pessoa.setPeso(novoPeso);
+                System.out.println("Peso atualizado com sucesso.");
+                break;
+            case 5:
+                System.out.print("Digite a nova altura: ");
+                double novaAltura = scanner.nextDouble();
+                pessoa.setAltura(novaAltura);
+                System.out.println("Altura atualizada com sucesso.");
+                break;
+            default:
+                System.out.println("Opção inválida.");
+            } Thread.sleep(1000);
         }
-        Thread.sleep(1000);
-    }
 
     public static void calcularImc() throws InterruptedException {
         System.out.print("Digite o código da pessoa: ");
         codigoPessoa = scanner.nextInt();
         pessoa = sistema.encontrarPessoa(codigoPessoa);
 
-        if (pessoa == null) {
-            System.out.println("Pessoa não encontrado");
-            return;
-        }
+        validarPessoa(pessoa);
 
         double imc = CalculadoraIMC.calcularIMC(pessoa.getPeso(), pessoa.getAltura());
         System.out.println("IMC: " + imc);
@@ -174,10 +192,7 @@ public class Menu {
         System.out.print("Digite o código da pessoa: ");
         pessoa = sistema.encontrarPessoa(scanner.nextInt());
 
-        if (pessoa == null) {
-            System.out.println("Pessoa não encontrado");
-            return;
-        }
+        validarPessoa(pessoa);
 
         double pesoIdeal = CalculadoraPesoIdeal.calcularPesoIdeal(pessoa.getAltura(), pessoa.getGenero());
         System.out.println("Peso Ideal: " + pesoIdeal);
@@ -188,10 +203,7 @@ public class Menu {
         System.out.print("Digite o código da pessoa: ");
         pessoa = sistema.encontrarPessoa(scanner.nextInt());
 
-        if (pessoa == null) {
-            System.out.println("Pessoa não encontrado");
-            return;
-        }
+        validarPessoa(pessoa);
 
         double taxaGordura = CalculadoraTaxaGordura.calcularTaxaGordura(
                 CalculadoraIMC.calcularIMC(pessoa.getPeso(), pessoa.getAltura()),
@@ -199,4 +211,13 @@ public class Menu {
         System.out.println("Taxa de Gordura Corporal: " + taxaGordura);
         Thread.sleep(1000);
     }
+
+    private static void validarPessoa(Pessoa pessoa) throws InterruptedException {
+        if (pessoa == null) {
+            System.out.println("Pessoa não encontrada");
+            Thread.sleep(1000);
+            return;
+        }
+    }
+
 }

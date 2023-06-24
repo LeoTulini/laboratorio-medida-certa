@@ -12,7 +12,7 @@ public class CalculadoraTaxaGorduraTest {
         int idade = 35;
         double taxaGorduraEsperada = 32.65;
 
-        double taxaGorduraCalculada = CalculadoraTaxaGordura.calcularTaxaGordura(imc, String.valueOf(genero), idade);
+        double taxaGorduraCalculada = CalculadoraTaxaGordura.calcularTaxaGordura(imc, genero, idade);
 
         Assert.assertEquals(taxaGorduraEsperada, taxaGorduraCalculada, 0.01);
     }
@@ -24,7 +24,7 @@ public class CalculadoraTaxaGorduraTest {
         int idade = 35;
         double taxaGorduraEsperada = 21.85;
 
-        double taxaGorduraCalculada = CalculadoraTaxaGordura.calcularTaxaGordura(imc, String.valueOf(genero), idade);
+        double taxaGorduraCalculada = CalculadoraTaxaGordura.calcularTaxaGordura(imc, genero, idade);
 
         Assert.assertEquals(taxaGorduraEsperada, taxaGorduraCalculada, 0.01);
     }
